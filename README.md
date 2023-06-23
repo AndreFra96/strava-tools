@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Introduzione
 
-## Getting Started
+L'obiettivo di questo progetto è quello di implementare alcune funzionalità aggiuntive per Strava utilizzando le api ufficiali.
 
-First, run the development server:
+## Installazione ed esecuzione in locale
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+Per eseguire il progetto in locale eseguire i seguenti passaggi:
+
+### 1. Ottenere una copia in locale del progetto
+
+Il primo step necessario è quello di ottenere una copia locale del codice dove effettuare le modifiche, per farlo eseguire il seguente comando:
+
+```shell
+git clone https://github.com/AndreFra96/strava-tools.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Dopo di che è possibile spostarsi all'interno della repository locale appena scaricata
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+cd strava-tools
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 2. Eseguire il setup
 
-## Learn More
+Una volta scaricata la copia in locale è necessario installare le dipendenze (già definite nel file package.json), per farlo eseguire il seguente comando:
 
-To learn more about Next.js, take a look at the following resources:
+```shell
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Una volta installate le dipendenze è necessario preparare l'ambiente di esecuzione, per farlo aggiungere all'interno della cartella strava-tools un file chiamato `.env.local` con il seguente contenuto:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+STRAVA_CLIENT_ID=<CLIENT_ID>
+STRAVA_CLIENT_SECRET=<CLIENT_SECRET>
+STRAVA_REDIRECT_URI=http://localhost:3000/attivita
+```
 
-## Deploy on Vercel
+Sostituire <CLIENT_ID> e <CLIENT_SECRET> con id e secret ottenuti dal pannello di controllo di strava.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Lanciare l'applicazione in locale
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+A questo punto è possibile eseguire l'applicazione in locale lanciando il seguente comando:
+
+```shell
+npm run dev
+```
+
+L'applicazione verrà lanciata e resa disponibile di default in localhost sulla porta 3000.
