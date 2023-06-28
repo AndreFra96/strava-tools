@@ -1,21 +1,26 @@
-'use client';
-
+import { getAthleteStats } from "@/functions";
+import { cookies } from "next/dist/client/components/headers";
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default function Attivita() {
-    const params = useSearchParams();
-    const [session, setSession] = useState({})
+export default async function Attivita() {
 
-    useEffect(() => {
-        if (!params.has('code')) return;
-        const code = params.get('code');
-        fetch(`/auth/${code}`).then(async (response) => {
-            setSession(await response.json())
-        })
-    }, [params])
+    const stats = await getStats();
 
     return (
-        <div>{JSON.stringify(session)}</div>
+        <div>{JSON.stringify(stats)}</div>
     )
+}
+
+async function getStats(){
+
+    const session_cookie = cookies().get('strava_session')
+
+    if(!session_cookie || !session_cookie.value)
+        return {'error': 'nessuna sessione attiva'};
+
+    const session_data = JSON.parse(session_cookie.value)
+
+    return await getAthleteStats(session_data.access_token, session_data.athlete.id)
+
 }
