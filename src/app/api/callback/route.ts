@@ -10,7 +10,10 @@ export async function GET(
     const code  = callBackURL.searchParams.get('code')
 
     if(!code)
-        return NextResponse.json({'error':'Invalid code'})
+        return NextResponse.redirect('http://localhost:3000/')//return NextResponse.json({'error':'Invalid code'})
+    
+        
+        
     
     if(!process.env.STRAVA_CLIENT_ID || !process.env.STRAVA_CLIENT_SECRET)
         return NextResponse.json({'error':'Invalid clientId e clientSecret'});
@@ -20,7 +23,7 @@ export async function GET(
 
      cookies().set('strava_session', JSON.stringify(tokenResponse))
 
-     const baseURL = new URL('/attivita',request.url)
+     const baseURL = new URL('/user',request.url)
      return NextResponse.redirect(baseURL)
 
     
