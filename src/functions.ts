@@ -23,4 +23,32 @@ async function codeForTokenExchange(
   return data;
 }
 
-export { codeForTokenExchange };
+async function getAthleteStats(token_access: string, id_atleta: string){
+  const config = {
+    headers: {
+      "Authorization": "Bearer " + token_access
+    }
+  }
+
+  const response = await fetch(`https://www.strava.com/api/v3/athletes/${id_atleta}/stats`,config)
+  const data = await response.json()
+
+  return data;
+}
+
+async function getAthleteActivies(token_access: string) {
+  const config = {
+    headers: {
+      "Authorization": "Bearer " + token_access
+    }
+  };
+
+  const response = await fetch(`https://www.strava.com/api/v3/athlete/activities`,config)
+  const data = await response.json()
+
+  return data;
+}
+
+export { codeForTokenExchange, getAthleteStats, getAthleteActivies};
+
+
