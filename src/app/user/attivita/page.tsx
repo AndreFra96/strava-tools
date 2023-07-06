@@ -78,7 +78,7 @@ async function getActivies(){
     const session =  getSession();
 
     if(session.error)
-        return  {error: session?.error}
+        return  {error: session?.error} //provaaaaaaa
 
     return await getAthleteActivies(session.data.access_token)
 
