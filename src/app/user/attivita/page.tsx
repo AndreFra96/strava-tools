@@ -15,9 +15,14 @@ export default async function Attivita() {
     const stats = await getStats();
     const activies = await getActivies();
 
-    return (
-        <div>
+    return (        
+        <div>                   
+            {/* <div id="back_button_container">            
+                <button onClick={() => {location.href="/user/"}}>Home</button>             
+            </div>  */}
             {/* {JSON.stringify(stats)} */}
+
+            <a href="/user/">Home</a>
             <table style={{border: "1px solid black"}}>
                {
                 activies.map((item:any) => {
@@ -30,7 +35,8 @@ export default async function Attivita() {
             </table>
             
             
-            </div>
+        </div> 
+        
     )
 }
 
@@ -78,7 +84,7 @@ async function getActivies(){
     const session =  getSession();
 
     if(session.error)
-        return  {error: session?.error}
+        return  {error: session?.error} //provaaaa
 
     return await getAthleteActivies(session.data.access_token)
 
