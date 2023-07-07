@@ -34,6 +34,7 @@ Una volta installate le dipendenze è necessario preparare l'ambiente di esecuzi
 STRAVA_CLIENT_ID=<CLIENT_ID>
 STRAVA_CLIENT_SECRET=<CLIENT_SECRET>
 STRAVA_REDIRECT_URI=http://localhost:3000/attivita
+STRAVA_BASE_URL=https://www.strava.com/api/v3
 ```
 
 Sostituire <CLIENT_ID> e <CLIENT_SECRET> con id e secret ottenuti dal pannello di controllo di strava.
