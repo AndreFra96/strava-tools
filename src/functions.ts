@@ -30,7 +30,7 @@ async function getAthleteStats(token_access: string, id_atleta: string){
     }
   }
 
-  const response = await fetch(`https://www.strava.com/api/v3/athletes/${id_atleta}/stats`,config)
+  const response = await fetch(`${process.env.STRAVA_BASE_URL}/athletes/${id_atleta}/stats`,config)
   const data = await response.json()
 
   return data;
@@ -43,7 +43,7 @@ async function getAthleteActivies(token_access: string) {
     }
   };
 
-  const response = await fetch(`https://www.strava.com/api/v3/athlete/activities`,config)
+  const response = await fetch(`${process.env.STRAVA_BASE_URL}/athlete/activities`,config)
   const data = await response.json()
 
   return data;
