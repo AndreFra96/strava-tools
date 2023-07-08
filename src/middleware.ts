@@ -4,10 +4,10 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const cookiesStorage = request.cookies;
 
-  const strava_session = cookiesStorage.get("strava_session");
+  const stravaSession = cookiesStorage.get("strava_session");
 
   //se il cookie non è valido o non esiste allora reindirizzo alla pagina di login
-  if (!strava_session || !strava_session.value) {
+  if (!stravaSession || !stravaSession.value) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
