@@ -22,7 +22,7 @@ function hasValidSession(request: NextRequest): boolean {
 
   if (!stravaSession || !stravaSession.value) return false;
 
-  //TODO: qui dobbiamo aggiungere ulteriori controlli sul token
+  //TODO: qui dobbiamo aggiungere ulteriori controlli sul token!
 
   return true;
 }
