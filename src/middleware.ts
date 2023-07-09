@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isSession } from "./models/session";
 
 export function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
@@ -22,7 +23,5 @@ function hasValidSession(request: NextRequest): boolean {
 
   if (!stravaSession || !stravaSession.value) return false;
 
-  //TODO: qui dobbiamo aggiungere ulteriori controlli sul token!
-
-  return true;
+  return isSession(JSON.parse(stravaSession.value));
 }
