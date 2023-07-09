@@ -23,15 +23,18 @@ async function codeForTokenExchange(
   return data;
 }
 
-async function getAthleteStats(token_access: string, id_atleta: string){
+async function getAthleteStats(token_access: string, id_atleta: number) {
   const config = {
     headers: {
-      "Authorization": "Bearer " + token_access
-    }
-  }
+      Authorization: "Bearer " + token_access,
+    },
+  };
 
-  const response = await fetch(`${process.env.STRAVA_BASE_URL}/athletes/${id_atleta}/stats`,config)
-  const data = await response.json()
+  const response = await fetch(
+    `${process.env.STRAVA_BASE_URL}/athletes/${id_atleta}/stats`,
+    config
+  );
+  const data = await response.json();
 
   return data;
 }
@@ -39,16 +42,17 @@ async function getAthleteStats(token_access: string, id_atleta: string){
 async function getAthleteActivies(token_access: string) {
   const config = {
     headers: {
-      "Authorization": "Bearer " + token_access
-    }
+      Authorization: "Bearer " + token_access,
+    },
   };
 
-  const response = await fetch(`${process.env.STRAVA_BASE_URL}/athlete/activities`,config)
-  const data = await response.json()
+  const response = await fetch(
+    `${process.env.STRAVA_BASE_URL}/athlete/activities`,
+    config
+  );
+  const data = await response.json();
 
   return data;
 }
 
-export { codeForTokenExchange, getAthleteStats, getAthleteActivies};
-
-
+export { codeForTokenExchange, getAthleteStats, getAthleteActivies };
