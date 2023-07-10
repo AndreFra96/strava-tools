@@ -1,14 +1,6 @@
 import { getAthleteActivies, getAthleteStats } from "@/functions";
+import { Session } from "@/models/session";
 import { cookies } from "next/dist/client/components/headers";
-import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
-
-type Session = {
-    error?: string;
-    data?: any
-}
-
-let session:Session|null = null;
 
 export default async function Attivita() {
 
@@ -17,69 +9,57 @@ export default async function Attivita() {
 
     return (
         <div>
+            {/* <div id="back_button_container">            
+                <button onClick={() => {location.href="/user/"}}>Home</button>             
+            </div>  */}
             {/* {JSON.stringify(stats)} */}
-            <table style={{border: "1px solid black"}}>
-               {
-                activies.map((item:any) => {
-                    return <tr key={item}>
-                        <td>{item.name}</td>
-                        <td>{item.distance}</td>
-                    </tr>
-                })
-               }
+
+            <a href="/user/">Home</a>
+            <table style={{ border: "1px solid black" }}>
+                {
+                    activies.map((item: any) => {
+                        return <tr key={item}>
+                            <td>{item.name}</td>
+                            <td>{item.distance}</td>
+                        </tr>
+                    })
+                }
             </table>
-            
-            
-            </div>
+
+
+        </div>
+
     )
 }
 
 /**
- * Se la sessione non è ancora stata caricata, carica la sessione
+ * Restituisce la sessione attiva
  * 
- * (session non caricata vuol dire session = null)
+ * TODO: questa funzione dovrebbe essere spostata in un file a parte, in modo da poterla riutilizzare
  */
-function getSession() {
-    console.log("iniziato get session");
-    if(session !== null) return session;
-    console.log("caricata sessione");
-    
-    const session_cookie = cookies().get('strava_session')
+function getSession(): Session {
 
-    if(!session_cookie || !session_cookie.value){
-        session = {
-            error: 'Session not found',
-        }
-        return session
-    }
+    //possiamo usare l'operatore '!' perche è giò stato verificato che il cookie esista all'interno del middleware
+    const session = cookies().get('strava_session')!.value;
 
-    session = {
-        data: JSON.parse(session_cookie.value)
-    }
+    //possiamo usare l'operatore 'as' perchè è già stato verificato che la sessione sia valida all'interno del middleware
+    const parsed = JSON.parse(session) as Session;
 
-    return session;
+    return parsed;
 }
 
-async function getStats(){
+async function getStats() {
 
-    const session =  getSession();
+    const session = getSession();
 
-
-    if(session.error)
-        return  {error: session?.error}
-
-
-    return await getAthleteStats(session.data.access_token, session.data.athlete.id)
+    return await getAthleteStats(session.access_token, session.athlete.id)
 
 }
 
-async function getActivies(){
+async function getActivies() {
 
-    const session =  getSession();
+    const session = getSession();
 
-    if(session.error)
-        return  {error: session?.error}
-
-    return await getAthleteActivies(session.data.access_token)
+    return await getAthleteActivies(session.access_token)
 
 }
