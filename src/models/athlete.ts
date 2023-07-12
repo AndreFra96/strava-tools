@@ -1,4 +1,5 @@
 import Joi from "joi";
+import validateModel from "./validateModel";
 
 //Interfaccia che rappresenta l'atleta
 export interface Athlete {
@@ -25,7 +26,7 @@ export interface Athlete {
 }
 
 //Schema utilizzato per validare l'atleta
-export const athleteSchema = Joi.object({
+export const athleteSchema = Joi.object<Athlete>({
   id: Joi.number().required(),
   username: Joi.string().required(),
   resource_state: Joi.number().required(),
@@ -50,10 +51,5 @@ export const athleteSchema = Joi.object({
 
 //Funzione che controlla se un oggetto è un atleta valido
 export function isAthlete(athlete: any): athlete is Athlete {
-  const result = athleteSchema.validate(athlete);
-  if (result.error) {
-    console.log(`Athlete is not valid: ${result.error}`, athlete);
-    return false;
-  }
-  return true;
+  return validateModel(athlete, athleteSchema);
 }
