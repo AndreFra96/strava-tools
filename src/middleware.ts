@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   //se la richiesta è per una pagina che richiede una sessione attiva
   //e non è presente un cookie di sessione valido reindirizzo alla pagina di login
   if (pathName.startsWith("/user") && !hasValidSession(request))
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/?error", request.url));
 }
 
 /**

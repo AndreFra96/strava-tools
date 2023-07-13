@@ -4,7 +4,7 @@ import validateModel from "./validateModel";
 //Interfaccia che rappresenta l'atleta
 export interface Athlete {
   id: number;
-  username: string;
+  username?: string;
   resource_state: number;
   firstname: string;
   lastname: string;
@@ -28,11 +28,11 @@ export interface Athlete {
 //Schema utilizzato per validare l'atleta
 export const athleteSchema = Joi.object<Athlete>({
   id: Joi.number().required(),
-  username: Joi.string().required(),
+  username: Joi.string().required().allow(null),
   resource_state: Joi.number().required(),
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
-  bio: Joi.string().required().allow(null),
+  bio: Joi.string().required().allow(null).allow(""),
   city: Joi.string().required().allow(null),
   state: Joi.string().required().allow(null),
   country: Joi.string().required().allow(null),
