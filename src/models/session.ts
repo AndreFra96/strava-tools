@@ -1,6 +1,7 @@
 import { Athlete, athleteSchema } from "./athlete";
 
 import Joi from "joi";
+import validateModel from "./validateModel";
 
 //Interfaccia che rappresenta la sessione
 export interface Session {
@@ -13,7 +14,7 @@ export interface Session {
 }
 
 //Schema utilizzato per validare la sessione
-export const sessionSchema = Joi.object({
+export const sessionSchema = Joi.object<Session>({
   token_type: Joi.string().required(),
   expires_at: Joi.number().required(),
   expires_in: Joi.number().required(),
@@ -23,12 +24,8 @@ export const sessionSchema = Joi.object({
 });
 
 //Funzione che controlla se un oggetto è una sessione valida
-//Dopo aver chiamato questa funzione passando una variabile, quella variabile sarà di tipo Session
+//Se la variabile passata come parametro è una sessione valida la funzione restituisce true, false altrimenti.
+//Inoltre la funzione aggiunge il tipo alla variabile in modo che typescript la riconosca come sessione
 export function isSession(session: any): session is Session {
-  const result = sessionSchema.validate(session);
-  if (result.error) {
-    console.log(`Session is not valid: ${result.error}`, session);
-    return false;
-  }
-  return true;
+  return validateModel(session, sessionSchema);
 }
