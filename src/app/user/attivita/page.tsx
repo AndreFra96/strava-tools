@@ -10,12 +10,8 @@ export default async function Attivita() {
 
     return (
         <div>
-            
-            <ActivitiesTable activities={activities}/>
-
-
+            <ActivitiesTable activities={activities} />
         </div>
-
     )
 }
 
