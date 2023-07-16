@@ -1,3 +1,5 @@
+import { ActivityStats, isActivityStats } from "./models/activityStats";
+
 async function codeForTokenExchange(
   client_id: string,
   client_secret: string,
@@ -23,7 +25,18 @@ async function codeForTokenExchange(
   return data;
 }
 
-async function getAthleteStats(token_access: string, id_atleta: number) {
+/**
+ * Restituisce le statistiche sulle attività di un atleta
+ *
+ * @see https://developers.strava.com/docs/reference/#api-Athletes-getStats
+ * @param token_access token di accesso
+ * @param id_atleta id dell'atleta
+ * @returns statistiche delle attività dell'atleta
+ */
+async function getAthleteStats(
+  token_access: string,
+  id_atleta: number
+): Promise<ActivityStats> {
   const config = {
     headers: {
       Authorization: "Bearer " + token_access,
@@ -35,6 +48,8 @@ async function getAthleteStats(token_access: string, id_atleta: number) {
     config
   );
   const data = await response.json();
+
+  if (!isActivityStats(data)) throw new Error("Invalid activity stats", data);
 
   return data;
 }
