@@ -1,5 +1,5 @@
 import ActivitiesTable from "@/components/TableActivities";
-import { getAthleteActivies, getAthleteStats } from "@/functions";
+import { getAthleteActivities, getAthleteStats } from "@/functions";
 import { ActivityStats } from "@/models/activityStats";
 import { Session } from "@/models/session";
 import { cookies } from "next/dist/client/components/headers";
@@ -7,7 +7,7 @@ import { cookies } from "next/dist/client/components/headers";
 export default async function Attivita() {
 
     const stats: ActivityStats = await getStats();
-    const activities = await getActivies();
+    const activities = await getActivities();
 
     return (
         <div>
@@ -40,10 +40,10 @@ async function getStats(): Promise<ActivityStats> {
 
 }
 
-async function getActivies() {
+async function getActivities() {
 
     const session = getSession();
 
-    return await getAthleteActivies(session.access_token)
+    return await getAthleteActivities(session.access_token)
 
 }

@@ -54,7 +54,7 @@ async function getAthleteStats(
   return data;
 }
 
-async function getAthleteActivies(token_access: string) {
+async function getAthleteActivities(token_access: string) {
   const config = {
     headers: {
       Authorization: "Bearer " + token_access,
@@ -70,4 +70,4 @@ async function getAthleteActivies(token_access: string) {
   return data;
 }
 
-export { codeForTokenExchange, getAthleteStats, getAthleteActivies };
+export { codeForTokenExchange, getAthleteStats, getAthleteActivities };
