@@ -3,6 +3,10 @@ import { MetaAthlete } from "./metaAthlete";
 import { PolylineMap } from "./polylineMap";
 import { SportType } from "./sportType";
 
+/**
+ * informazioni sulle attività di un atleta
+ * @see https://developers.strava.com/docs/reference/#api-Activities-getLoggedInAthleteActivities
+ */
 export interface ActivityAthlete {
     id: bigint;
     external_id: string;

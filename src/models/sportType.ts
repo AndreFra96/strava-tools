@@ -51,6 +51,10 @@ enum Sport_Types {
     Yoga = "Yoga"
 }
 
+/**
+ * I tipi di sport che un'attività può avere
+ * @see https://developers.strava.com/docs/reference/#api-models-SportType
+ */
 export interface SportType {
     AlpineSki: Sport_Types.AlpineSki;
     BackcountrySki: Sport_Types.BackcountrySki;

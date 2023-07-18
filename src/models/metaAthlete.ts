@@ -1,5 +1,8 @@
+
+/**
+ * 
+ * @see https://developers.strava.com/docs/reference/#api-models-MetaAthlete
+ */
 export interface MetaAthlete {
     id: bigint;
-    resource_state: number;
-    name: string;
 }
