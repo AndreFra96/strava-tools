@@ -1,3 +1,4 @@
+import { ActivityAthlete } from "./models/activityAthlete";
 import { ActivityStats, isActivityStats } from "./models/activityStats";
 
 async function codeForTokenExchange(
@@ -54,15 +55,22 @@ async function getAthleteStats(
   return data;
 }
 
-async function getAthleteActivities(token_access: string) {
+async function getAthleteActivities(token_access: string): Promise<ActivityAthlete> {
+
   const config = {
+    opts: {
+      before: "56",
+      after: "56",
+      page: "56",
+      per_page: "56",
+    },
     headers: {
       Authorization: "Bearer " + token_access,
     },
   };
 
   const response = await fetch(
-    `${process.env.STRAVA_BASE_URL}/athlete/activities`,
+    `${process.env.STRAVA_BASE_URL}/athlete/activities/${JSON.stringify(config.opts)}`,
     config
   );
   const data = await response.json();
