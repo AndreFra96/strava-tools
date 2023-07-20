@@ -37,5 +37,5 @@ export const activityStatsSchema = Joi.object<ActivityStats>({
 export function isActivityStats(
   activityStats: any
 ): activityStats is ActivityStats {
-  return validateModel(activityStats, activityStatsSchema);
+  return validateModel<ActivityStats>(activityStats, activityStatsSchema);
 }

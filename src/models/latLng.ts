@@ -11,13 +11,10 @@ import validateModel from "./validateModel";
 export type LatLng = [number, number];
 
 export const latLngSchema = Joi.array()
-  .items(Joi.number())
-  .length(2)
-  .required();
+    .items(Joi.number())
+    .length(2)
+    .required();
 
 export function isLatLng(latLng: any): latLng is LatLng {
-  return validateModel<LatLng>(latLng, latLngSchema);
+    return validateModel<LatLng>(latLng, latLngSchema);
 }
-
-//NOTE: eliminato il type coordinates e reso tutto più "snello"
-//NOTE: aggiunto validation con JOI

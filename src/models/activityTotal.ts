@@ -26,5 +26,5 @@ export const activityTotalSchema = Joi.object<ActivityTotal>({
 export function isActivityTotal(
   activityTotal: any
 ): activityTotal is ActivityTotal {
-  return validateModel(activityTotal, activityTotalSchema);
+  return validateModel<ActivityTotal>(activityTotal, activityTotalSchema);
 }
