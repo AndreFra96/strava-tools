@@ -1,3 +1,6 @@
+import { AthleteActivity, isAthleteActivity } from "./models/athleteActivity";
+import { ActivityStats, isActivityStats } from "./models/activityStats";
+
 async function codeForTokenExchange(
   client_id: string,
   client_secret: string,
@@ -23,7 +26,18 @@ async function codeForTokenExchange(
   return data;
 }
 
-async function getAthleteStats(token_access: string, id_atleta: number) {
+/**
+ * Restituisce le statistiche sulle attività di un atleta
+ *
+ * @see https://developers.strava.com/docs/reference/#api-Athletes-getStats
+ * @param token_access token di accesso
+ * @param id_atleta id dell'atleta
+ * @returns statistiche delle attività dell'atleta
+ */
+async function getAthleteStats(
+  token_access: string,
+  id_atleta: number
+): Promise<ActivityStats> {
   const config = {
     headers: {
       Authorization: "Bearer " + token_access,
@@ -36,23 +50,48 @@ async function getAthleteStats(token_access: string, id_atleta: number) {
   );
   const data = await response.json();
 
+  if (!isActivityStats(data)) throw new Error("Invalid activity stats", data);
+
   return data;
 }
 
-async function getAthleteActivies(token_access: string) {
+type ActivityOptions = {
+  page: number;
+  per_page: number;
+};
+
+/**
+ * NOTE: attenzione a come viene costruita la stringa URL, da rivedere
+ * @param token_access
+ * @returns
+ */
+async function getAthleteActivities(
+  token_access: string,
+  options: ActivityOptions = { page: 1, per_page: 10 }
+): Promise<AthleteActivity[]> {
+  const url = new URL(`${process.env.STRAVA_BASE_URL}/athlete/activities`);
+  url.searchParams.set("page", options.page.toString());
+  url.searchParams.set("per_page", options.per_page.toString());
+
   const config = {
     headers: {
       Authorization: "Bearer " + token_access,
     },
   };
+  const response = await fetch(url, config);
 
-  const response = await fetch(
-    `${process.env.STRAVA_BASE_URL}/athlete/activities`,
-    config
-  );
+  console.log(`sono qua! ${response.url}`);
+
   const data = await response.json();
 
-  return data;
+  if (!Array.isArray(data)) return [];
+
+  data.forEach((activity) => {
+    if (!isAthleteActivity(activity))
+      throw new Error("Invalid activity", activity);
+  });
+
+  return data as AthleteActivity[];
 }
 
-export { codeForTokenExchange, getAthleteStats, getAthleteActivies };
+export { codeForTokenExchange, getAthleteStats, getAthleteActivities };

@@ -27,5 +27,5 @@ export const sessionSchema = Joi.object<Session>({
 //Se la variabile passata come parametro è una sessione valida la funzione restituisce true, false altrimenti.
 //Inoltre la funzione aggiunge il tipo alla variabile in modo che typescript la riconosca come sessione
 export function isSession(session: any): session is Session {
-  return validateModel(session, sessionSchema);
+  return validateModel<Session>(session, sessionSchema);
 }

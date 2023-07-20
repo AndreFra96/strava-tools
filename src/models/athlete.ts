@@ -51,5 +51,5 @@ export const athleteSchema = Joi.object<Athlete>({
 
 //Funzione che controlla se un oggetto è un atleta valido
 export function isAthlete(athlete: any): athlete is Athlete {
-  return validateModel(athlete, athleteSchema);
+  return validateModel<Athlete>(athlete, athleteSchema);
 }

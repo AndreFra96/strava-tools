@@ -10,9 +10,12 @@ import Joi from "joi";
  */
 export default function validateModel<T>(
   model: any,
-  schema: Joi.ObjectSchema<T>
+  schema: Joi.Schema
 ): model is T {
-  const result = schema.validate(model);
+  const options = {
+    allowUnknown: true,
+  }
+  const result = schema.validate(model, options);
   if (result.error) {
     console.log(`Model is not valid: ${result.error}`, model);
     return false;
