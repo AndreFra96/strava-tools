@@ -44,6 +44,11 @@ async function getActivities() {
 
     const session = getSession();
 
-    return await getAthleteActivities(session.access_token)
+    const options = {
+        page: 1,
+        per_page: 10
+    }
+
+    return await getAthleteActivities(session.access_token, options)
 
 }

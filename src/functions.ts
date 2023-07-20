@@ -1,4 +1,4 @@
-import { AthleteActivity } from "./models/athleteActivity";
+import { AthleteActivity, isAthleteActivity } from "./models/athleteActivity";
 import { ActivityStats, isActivityStats } from "./models/activityStats";
 
 async function codeForTokenExchange(
@@ -55,38 +55,43 @@ async function getAthleteStats(
   return data;
 }
 
+type ActivityOptions = {
+  page: number;
+  per_page: number;
+};
 
 /**
  * NOTE: attenzione a come viene costruita la stringa URL, da rivedere
- * @param token_access 
- * @returns 
+ * @param token_access
+ * @returns
  */
-async function getAthleteActivities(token_access: string): Promise<AthleteActivity> {
-  const opts = {
-    before: "56",
-    after: "56",
-    page: "56",
-    per_page: "56",
-  }
-
-  const temp = new URLSearchParams(opts);
+async function getAthleteActivities(
+  token_access: string,
+  options: ActivityOptions = { page: 1, per_page: 10 }
+): Promise<AthleteActivity[]> {
+  const url = new URL(`${process.env.STRAVA_BASE_URL}/athlete/activities`);
+  url.searchParams.set("page", options.page.toString());
+  url.searchParams.set("per_page", options.per_page.toString());
 
   const config = {
     headers: {
       Authorization: "Bearer " + token_access,
     },
   };
-
-  const response = await fetch(
-    `${process.env.STRAVA_BASE_URL}/athlete/activities?${temp}`, //JSON.stringify(opts)
-    config
-  );
+  const response = await fetch(url, config);
 
   console.log(`sono qua! ${response.url}`);
 
   const data = await response.json();
 
-  return data;
+  if (!Array.isArray(data)) return [];
+
+  data.forEach((activity) => {
+    if (!isAthleteActivity(activity))
+      throw new Error("Invalid activity", activity);
+  });
+
+  return data as AthleteActivity[];
 }
 
 export { codeForTokenExchange, getAthleteStats, getAthleteActivities };

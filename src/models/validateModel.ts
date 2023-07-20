@@ -10,7 +10,7 @@ import Joi from "joi";
  */
 export default function validateModel<T>(
   model: any,
-  schema: Joi.ObjectSchema<T>
+  schema: Joi.Schema
 ): model is T {
   const result = schema.validate(model);
   if (result.error) {
