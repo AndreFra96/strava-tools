@@ -9,7 +9,7 @@ import validateModel from "./validateModel";
  * informazioni sulle attività di un atleta
  * @see https://developers.strava.com/docs/reference/#api-Activities-getLoggedInAthleteActivities
  */
-export interface ActivityAthlete { //TODO: usare lo stesso di strava che mi sembra sia 'AthleteActivity' anzi che 'ActivityAthlete'(controllare)
+export interface AthleteActivity { //DONE: usare lo stesso di strava che mi sembra sia 'AthleteActivity' anzi che 'ActivityAthlete'(controllare)
     id: bigint;
     external_id: string;
     upload_id: bigint;
@@ -54,7 +54,7 @@ export interface ActivityAthlete { //TODO: usare lo stesso di strava che mi semb
 
 }
 
-export const activityAthleteSchema = Joi.object<ActivityAthlete>({
+export const activityAthleteSchema = Joi.object<AthleteActivity>({
     id: Joi.number().required(),
     external_id: Joi.string().required(),
     upload_id: Joi.number().required(),
@@ -100,6 +100,6 @@ export const activityAthleteSchema = Joi.object<ActivityAthlete>({
 
 export function isActivityStats(
     activityAthlete: any
-): activityAthlete is ActivityAthlete {
+): activityAthlete is AthleteActivity {
     return validateModel(activityAthlete, activityAthleteSchema);
 }

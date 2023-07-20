@@ -1,4 +1,4 @@
-import { ActivityAthlete } from "./models/activityAthlete";
+import { AthleteActivity } from "./models/athleteActivity";
 import { ActivityStats, isActivityStats } from "./models/activityStats";
 
 async function codeForTokenExchange(
@@ -61,7 +61,7 @@ async function getAthleteStats(
  * @param token_access 
  * @returns 
  */
-async function getAthleteActivities(token_access: string): Promise<ActivityAthlete> {
+async function getAthleteActivities(token_access: string): Promise<AthleteActivity> {
   const opts = {
     before: "56",
     after: "56",
