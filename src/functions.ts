@@ -68,6 +68,9 @@ async function getAthleteActivities(token_access: string): Promise<AthleteActivi
     page: "56",
     per_page: "56",
   }
+
+  const temp = new URLSearchParams(opts);
+
   const config = {
     headers: {
       Authorization: "Bearer " + token_access,
@@ -75,9 +78,12 @@ async function getAthleteActivities(token_access: string): Promise<AthleteActivi
   };
 
   const response = await fetch(
-    `${process.env.STRAVA_BASE_URL}/athlete/activities/${JSON.stringify(opts)}`,
+    `${process.env.STRAVA_BASE_URL}/athlete/activities?${temp}`, //JSON.stringify(opts)
     config
   );
+
+  console.log(`sono qua! ${response.url}`);
+
   const data = await response.json();
 
   return data;
