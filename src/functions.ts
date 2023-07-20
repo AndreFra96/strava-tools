@@ -55,22 +55,27 @@ async function getAthleteStats(
   return data;
 }
 
-async function getAthleteActivities(token_access: string): Promise<ActivityAthlete> {
 
+/**
+ * NOTE: attenzione a come viene costruita la stringa URL, da rivedere
+ * @param token_access 
+ * @returns 
+ */
+async function getAthleteActivities(token_access: string): Promise<ActivityAthlete> {
+  const opts = {
+    before: "56",
+    after: "56",
+    page: "56",
+    per_page: "56",
+  }
   const config = {
-    opts: {
-      before: "56",
-      after: "56",
-      page: "56",
-      per_page: "56",
-    },
     headers: {
       Authorization: "Bearer " + token_access,
     },
   };
 
   const response = await fetch(
-    `${process.env.STRAVA_BASE_URL}/athlete/activities/${JSON.stringify(config.opts)}`,
+    `${process.env.STRAVA_BASE_URL}/athlete/activities/${JSON.stringify(opts)}`,
     config
   );
   const data = await response.json();

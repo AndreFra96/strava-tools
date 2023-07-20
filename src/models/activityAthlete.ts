@@ -1,13 +1,15 @@
-import { LatLng } from "./latLng";
-import { MetaAthlete } from "./metaAthlete";
-import { PolylineMap } from "./polylineMap";
-import { SportType } from "./sportType";
+import Joi, { any } from "joi";
+import { LatLng, latLngSchema } from "./latLng";
+import { MetaAthlete, metaAthleteSchema } from "./metaAthlete";
+import { PolylineMap, polylineMapSchema } from "./polylineMap";
+import { SportType, sportTypeSchema } from "./sportType";
+import validateModel from "./validateModel";
 
 /**
  * informazioni sulle attività di un atleta
  * @see https://developers.strava.com/docs/reference/#api-Activities-getLoggedInAthleteActivities
  */
-export interface ActivityAthlete {
+export interface ActivityAthlete { //TODO: usare lo stesso di strava che mi sembra sia 'AthleteActivity' anzi che 'ActivityAthlete'(controllare)
     id: bigint;
     external_id: string;
     upload_id: bigint;
@@ -50,4 +52,54 @@ export interface ActivityAthlete {
     max_watts: number;
     weighted_average_watts: number;
 
-} 
+}
+
+export const activityAthleteSchema = Joi.object<ActivityAthlete>({
+    id: Joi.number().required(),
+    external_id: Joi.string().required(),
+    upload_id: Joi.number().required(),
+    athlete: metaAthleteSchema.required(),
+    name: Joi.string().required(),
+    distance: Joi.number().required(),
+    moving_time: Joi.number().required(),
+    elapsed_time: Joi.number().required(),
+    total_elevation_gain: Joi.number().required(),
+    elev_high: Joi.number().required(),
+    elev_low: Joi.number().required(),
+    type: sportTypeSchema.required(),
+    sport_type: sportTypeSchema.required(),
+    start_date: Joi.number().required(),//NOTE: dubbio su questo DATE
+    timezone: Joi.number().required(),
+    start_latlng: latLngSchema.required(),
+    end_latlng: latLngSchema.required(),
+    achievement_count: Joi.number().required(),
+    kudos_count: Joi.number().required(),
+    comments_count: Joi.number().required(),
+    athlete_count: Joi.number().required(),
+    photo_count: Joi.number().required(),
+    total_photo_count: Joi.number().required(),
+    map: polylineMapSchema.required(),
+    trainer: Joi.boolean().required(),
+    commute: Joi.boolean().required(),
+    manual: Joi.boolean().required(),
+    private: Joi.boolean().required(),
+    flaggged: Joi.boolean().required(),
+    workout_type: Joi.number().required(),
+    upload_id_str: Joi.string().required,
+    average_speed: Joi.number().required(),
+    max_speed: Joi.number().required(),
+    has_kudoed: Joi.boolean().required(),
+    hide_from_home: Joi.boolean().required(),
+    gear_id: Joi.string().required,
+    kilojoules: Joi.number().required(),
+    average_watts: Joi.number().required(),
+    device_watts: Joi.number().required(),
+    max_watts: Joi.number().required(),
+    weighted_average_watts: Joi.number().required(),
+});
+
+export function isActivityStats(
+    activityAthlete: any
+): activityAthlete is ActivityAthlete {
+    return validateModel(activityAthlete, activityAthleteSchema);
+}

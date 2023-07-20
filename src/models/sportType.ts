@@ -1,3 +1,6 @@
+import Joi from "joi";
+import validateModel from "./validateModel";
+
 enum Sport_Types {
     AlpineSki = "AlpineSki",
     BackcountrySki = "BackcountrySki",
@@ -107,3 +110,66 @@ export interface SportType {
     Workout: Sport_Types.Workout;
     Yoga: Sport_Types.Yoga;
 }
+
+export const sportTypeSchema = Joi.object<SportType>({
+    AlpineSki: Joi.string().required(),
+    BackcountrySki: Joi.string().required(),
+    Badminton: Joi.string().required(),
+    Canoeing: Joi.string().required(),
+    Crossfit: Joi.string().required(),
+    EBikeRide: Joi.string().required(),
+    Elliptical: Joi.string().required(),
+    EMountainBikeRide: Joi.string().required(),
+    Golf: Joi.string().required(),
+    GravelRide: Joi.string().required(),
+    Handcycle: Joi.string().required(),
+    HighIntensityIntervalTraining: Joi.string().required(),
+    Hike: Joi.string().required(),
+    IceSkate: Joi.string().required(),
+    InlineSkate: Joi.string().required(),
+    Kayaking: Joi.string().required(),
+    Kitesurf: Joi.string().required(),
+    MountainBikeRide: Joi.string().required(),
+    NordicSki: Joi.string().required(),
+    Pickleball: Joi.string().required(),
+    Pilates: Joi.string().required(),
+    Racquetball: Joi.string().required(),
+    Ride: Joi.string().required(),
+    RockClimbing: Joi.string().required(),
+    RollerSki: Joi.string().required(),
+    Rowing: Joi.string().required(),
+    Run: Joi.string().required(),
+    Sail: Joi.string().required(),
+    Skateboard: Joi.string().required(),
+    Snowboard: Joi.string().required(),
+    Snowshoe: Joi.string().required(),
+    Soccer: Joi.string().required(),
+    Squash: Joi.string().required(),
+    StairStepper: Joi.string().required(),
+    StandUpPaddling: Joi.string().required(),
+    Surfing: Joi.string().required(),
+    Swim: Joi.string().required(),
+    TableTennis: Joi.string().required(),
+    Tennis: Joi.string().required(),
+    TrailRun: Joi.string().required(),
+    Velomobile: Joi.string().required(),
+    VirtualRide: Joi.string().required(),
+    VirtualRow: Joi.string().required(),
+    VirtualRun: Joi.string().required(),
+    Walk: Joi.string().required(),
+    WeightTraining: Joi.string().required(),
+    Wheelchair: Joi.string().required(),
+    Windsurf: Joi.string().required(),
+    Workout: Joi.string().required(),
+    Yoga: Joi.string().required(),
+});
+
+export function isSportType(
+    sportType: any
+): sportType is SportType {
+    return validateModel(sportType, sportTypeSchema);
+}
+
+
+//NOTE: rivedere assieme se va serve l'interface o meno
+//NOTE: molto attenzione da rivedere assolutamente la validazione joi
