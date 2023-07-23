@@ -27,7 +27,7 @@ function checkEnv() {
     "STRAVA_CLIENT_ID",
     "STRAVA_CLIENT_SECRET",
     "STRAVA_REDIRECT_URI",
-    "STRAVA_BASE_URL",
+    "NEXT_PUBLIC_STRAVA_BASE_URL",
   ];
   requiredEnv.forEach((env) => {
     if (!process.env[env])

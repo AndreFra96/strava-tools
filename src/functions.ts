@@ -45,7 +45,7 @@ async function getAthleteStats(
   };
 
   const response = await fetch(
-    `${process.env.STRAVA_BASE_URL}/athletes/${id_atleta}/stats`,
+    `${process.env.NEXT_PUBLIC_STRAVA_BASE_URL}/athletes/${id_atleta}/stats`,
     config
   );
   const data = await response.json();
@@ -69,7 +69,9 @@ async function getAthleteActivities(
   token_access: string,
   options: ActivityOptions = { page: 1, per_page: 10 }
 ): Promise<AthleteActivity[]> {
-  const url = new URL(`${process.env.STRAVA_BASE_URL}/athlete/activities`);
+  const url = new URL(
+    `${process.env.NEXT_PUBLIC_STRAVA_BASE_URL}/athlete/activities`
+  );
   url.searchParams.set("page", options.page.toString());
   url.searchParams.set("per_page", options.per_page.toString());
 
@@ -79,8 +81,6 @@ async function getAthleteActivities(
     },
   };
   const response = await fetch(url, config);
-
-  console.log(`sono qua! ${response.url}`);
 
   const data = await response.json();
 
