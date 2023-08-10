@@ -1,8 +1,7 @@
 
 export default function User() {
     return <div>
-        <p>ciao user</p>
-        <a href="/user/attivita">attivita</a>
-
+        <h1>Home</h1>
+        <p>Benvenuto nella home page</p>
     </div>
 }

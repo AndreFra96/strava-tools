@@ -8,6 +8,7 @@ export default async function Attivita() {
 
     return (
         <div>
+            <h1>Attività</h1>
             <ActivitiesTable session={session} />
         </div>
     )
