@@ -14,7 +14,12 @@ export default function UserLayout({
 
     const pathname = usePathname();
 
-    const sidebarPages = [
+    type SidebarItem = {
+        name: string;
+        key: string;
+        path: string;
+    }
+    const sidebarPages: SidebarItem[] = [
         {
             name: 'Home',
             key: 'Home',
@@ -27,7 +32,7 @@ export default function UserLayout({
         }
     ]
 
-    function getActivePage() {
+    function getActivePage(): SidebarItem | undefined {
         return sidebarPages.find((page) => {
             return pathname == page.path;
         });
