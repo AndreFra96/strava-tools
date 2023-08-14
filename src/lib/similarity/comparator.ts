@@ -45,6 +45,9 @@
 
 //Ogni algoritmo di confronto deve implementare questa interfaccia
 export interface CompareStrategy<T> {
+  /**
+   * Restituisce l'indice di similarità fra due elementi, 1 se sono uguali, 0 se sono completamente diversi
+   **/
   compare(a: T, b: T): number;
 }
 
@@ -56,6 +59,9 @@ export class Comparator<T> {
     this.strategy = strategy;
   }
 
+  /**
+   * Restituisce l'indice di similarità fra due elementi, 1 se sono uguali, 0 se sono completamente diversi
+   **/
   compare(a: T, b: T): number {
     return this.strategy.compare(a, b);
   }

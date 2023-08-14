@@ -11,6 +11,12 @@ export class CompareByLength<T extends Coordinate[]>
     const distanceA = pathDistance(a);
     const distanceB = pathDistance(b);
 
-    return Math.abs(distanceA - distanceB);
+    return similarityIndex(distanceA, distanceB);
   }
+}
+
+//Calcola l'indice di somiglianza tra due numeri, 1 se sono uguali, 0 se sono diversi
+export function similarityIndex(a: number, b: number): number {
+  if (a == 0 && b == 0) return 1;
+  return 1 - Math.abs(a - b) / Math.max(a, b);
 }
