@@ -1,7 +1,8 @@
 /**
  * Controlla se un oggetto è valido rispetto ad uno schema, se è valido aggiunge il tipo all'oggetto
  * in modo che typescript lo riconosca come tale
- *
+ * 
+ * @see https://zod.dev/?id=introduction
  * @param model modello da analizzare
  * @param schema schema da utilizzare per validare il modello
  * @returns true se il modello è valido, false altrimenti
