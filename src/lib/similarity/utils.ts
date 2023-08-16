@@ -54,6 +54,20 @@ export function pathDistance(coordinates: GeoJSON.Position[]): number {
 }
 
 /**
+ * Calcola il dislivello positivo di un percorso utilizzando un array di coordinate attraversate.
+ */
+export function positiveElevationGain(
+  coordinates: [number, number, number][]
+): number {
+  let elevationGain = 0;
+  for (let i = 0; i < coordinates.length - 1; i++) {
+    if (coordinates[i + 1][2] > coordinates[i][2])
+      elevationGain += coordinates[i + 1][2] - coordinates[i][2];
+  }
+  return elevationGain;
+}
+
+/**
  * Controlla che una feature sia di tipo LineString
  * @param feature Controlla che una feature sia di tipo LineString
  * @returns true se la feature è di tipo LineString, false altrimenti
@@ -62,4 +76,10 @@ export function isLineString(
   feature: GeoJSON.Feature
 ): feature is GeoJSON.Feature<GeoJSON.LineString> {
   return feature.geometry.type === "LineString";
+}
+
+//Calcola l'indice di somiglianza tra due numeri, 1 se sono uguali, 0 se sono diversi
+export function similarityIndex(a: number, b: number): number {
+  if (a == 0 && b == 0) return 1;
+  return 1 - Math.abs(a - b) / Math.max(a, b);
 }
