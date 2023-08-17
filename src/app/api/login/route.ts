@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   if (!process.env.STRAVA_CLIENT_ID || !process.env.STRAVA_REDIRECT_URI) {
-    //non dovrebbe essere process.env.STRAVA_CLIENT_SECRET?
+
     return NextResponse.json({ error: "ClientID e ClientSecret no present" });
   }
 

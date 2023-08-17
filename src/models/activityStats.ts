@@ -6,7 +6,6 @@ import validateZodModel from "./validateZodModel";
  * Statistiche sulle attività di un atleta
  * @see https://developers.strava.com/docs/reference/#api-models-ActivityStats
  */
-
 export const ActivityStatsSchema = z.object({
   biggest_ride_distance: z.number(),
   biggest_climb_elevation_gain: z.number(),
