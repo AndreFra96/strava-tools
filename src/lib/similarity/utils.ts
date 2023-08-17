@@ -19,6 +19,33 @@ export function loadGPXasGeoJSON(
   });
 }
 
+type StravaGPX = GeoJSON.FeatureCollection & {
+  features: [
+    {
+      type: "Feature";
+      properties: {
+        _gpxType: "trk";
+        name: string;
+        type: string;
+        time: string;
+      };
+      geometry: {
+        type: "LineString";
+        coordinates: [number, number, number][];
+      };
+    },
+    ...Array<{}>
+  ];
+};
+
+export async function loadStravaGPXasGeoJSON(
+  path: fs.PathOrFileDescriptor
+): Promise<StravaGPX> {
+  const geoJSON: GeoJSON.FeatureCollection = await loadGPXasGeoJSON(path);
+  //TODO: controllare che rispetti il formato di Strava definito sopra
+  return geoJSON as StravaGPX;
+}
+
 /**
  * Calcola la distanza in metri fra due coordinate geografiche.
  * Il calcolo è basato sulla formula di Haversine che considera
@@ -27,7 +54,7 @@ export function loadGPXasGeoJSON(
 export function coordinatesDistance(
   first: GeoJSON.Position,
   second: GeoJSON.Position
-) {
+): number {
   var R = 6378.137; // Radius of earth in KM
   var dLat = (second[1] * Math.PI) / 180 - (first[1] * Math.PI) / 180;
   var dLon = (second[0] * Math.PI) / 180 - (first[0] * Math.PI) / 180;

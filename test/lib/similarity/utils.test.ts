@@ -19,6 +19,13 @@ describe("pathDistance test suite", () => {
     },
     {
       input: [
+        [0, 0],
+        [0, 0],
+      ],
+      output: 0,
+    },
+    {
+      input: [
         [45.45079, 9.212707],
         [45.447689, 9.210175],
       ],
@@ -38,6 +45,13 @@ describe("positiveElevationGain test suite", () => {
   type TestInput = { input: [number, number, number][]; output: number };
 
   const tests: TestInput[] = [
+    {
+      input: [
+        [0, 0, -10],
+        [0, 0, 10],
+      ],
+      output: 20,
+    },
     {
       input: [],
       output: 0,
@@ -99,7 +113,7 @@ describe("coordinatesDistance test suite", () => {
   );
 });
 
-describe("numbersSimilarity test suite", () => {
+describe("similarityIndex test suite", () => {
   type TestInput = { a: number; b: number; output: number };
 
   const tests: TestInput[] = [
@@ -150,7 +164,13 @@ describe("numbersSimilarity test suite", () => {
   test("la similarità fra 1000 e 250 è uguale a quella fra 250 e 1000", () => {
     expect(similarityIndex(1000, 250)).toBe(similarityIndex(250, 1000));
   });
+
   test("la similarità fra 200 e 199 è quasi totale (>0.99)", () => {
     expect(similarityIndex(200, 199)).toBeGreaterThan(0.99);
+  });
+
+  test("expect to return NaN if anything else then number is passed", () => {
+    const response = similarityIndex("A" as any, 2);
+    expect(response).toBeNaN();
   });
 });
