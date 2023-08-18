@@ -1,24 +1,20 @@
-import Joi from "joi";
-
 /**
  * Controlla se un oggetto è valido rispetto ad uno schema, se è valido aggiunge il tipo all'oggetto
  * in modo che typescript lo riconosca come tale
- *
+ * 
+ * @see https://zod.dev/?id=introduction
  * @param model modello da analizzare
  * @param schema schema da utilizzare per validare il modello
  * @returns true se il modello è valido, false altrimenti
  */
-export default function validateModel<T>(
+export default function validateZodModel<T>(
   model: any,
-  schema: Joi.Schema
+  schema: Zod.Schema
 ): model is T {
-  const options = {
-    allowUnknown: true,
+  const result = schema.safeParse(model);
+  if (result.success) {
+    return true;
   }
-  const result = schema.validate(model, options);
-  if (result.error) {
-    console.log(`Model is not valid: ${result.error}`, model);
-    return false;
-  }
-  return true;
+  console.log(`Model is not valid: ${result.error}`, model);
+  return false;
 }
