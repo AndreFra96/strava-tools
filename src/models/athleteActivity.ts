@@ -6,7 +6,7 @@ import { z } from "zod";
 import validateZodModel from "./validateZodModel";
 
 /**
- * 
+ *
  * @see https://developers.strava.com/docs/reference/#api-Activities-getActivityById
  */
 export const ActivityAthleteSchema = z.object({
@@ -39,7 +39,7 @@ export const ActivityAthleteSchema = z.object({
   manual: z.boolean(),
   private: z.boolean(),
   flagged: z.boolean(),
-  workout_type: z.number().nullable(),
+  workout_type: z.number().nullable().optional(),
   upload_id_str: z.string(),
   average_speed: z.number(),
   max_speed: z.number(),
@@ -57,6 +57,11 @@ export const ActivityAthleteSchema = z.object({
 
 export type AthleteActivity = z.infer<typeof ActivityAthleteSchema>;
 
-export function isAthleteActivity(athleteActivity: any): athleteActivity is AthleteActivity {
-  return validateZodModel<AthleteActivity>(athleteActivity, ActivityAthleteSchema);
+export function isAthleteActivity(
+  athleteActivity: any
+): athleteActivity is AthleteActivity {
+  return validateZodModel<AthleteActivity>(
+    athleteActivity,
+    ActivityAthleteSchema
+  );
 }
