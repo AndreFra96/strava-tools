@@ -5,8 +5,8 @@ import { pathDistance, similarityIndex } from "../utils";
 
 type A = [number, number] | [number, number, number];
 
-export class CompareByLength<T extends A[]> implements CompareStrategy<T> {
-  compare(a: T, b: T): number {
+export class CompareByLength implements CompareStrategy<A[]> {
+  compare(a: A[], b: A[]): number {
     const distanceA = pathDistance(a);
     const distanceB = pathDistance(b);
 

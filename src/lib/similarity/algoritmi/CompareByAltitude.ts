@@ -2,10 +2,13 @@ import { CompareStrategy } from "../comparator";
 import { positiveElevationGain, similarityIndex } from "../utils";
 
 //Algoritmo di confronto che confronta due tracciati GPX in base al dislivello positivo effettuato
-export class CompareByAltitude<T extends [number, number, number][]>
-  implements CompareStrategy<T>
+export class CompareByAltitude
+  implements CompareStrategy<[number, number, number][]>
 {
-  compare(a: T, b: T): number {
+  compare(
+    a: [number, number, number][],
+    b: [number, number, number][]
+  ): number {
     const altitudeA = positiveElevationGain(a);
     const altitudeB = positiveElevationGain(b);
 
