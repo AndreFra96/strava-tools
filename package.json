@@ -30,7 +30,7 @@
     "xmldom": "^0.6.0"
   },
   "devDependencies": {
-    "@types/xmldom": "^0.1.31"
+    "@types/xmldom": "^0.1.31",
     "zod": "^3.21.4"
   }
 }
