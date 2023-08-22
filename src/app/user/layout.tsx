@@ -29,6 +29,11 @@ export default function UserLayout({
             name: 'Attività',
             key: 'Attività',
             path: '/user/attivita'
+        },
+        {
+            name: 'Confronto',
+            key: 'Confronto',
+            path: '/user/confronto'
         }
     ]
 
