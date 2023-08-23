@@ -15,8 +15,8 @@ const onFinishFailed = (errorInfo: any) => {
 };
 
 type FieldType = {
-    first_id?: string;
-    second_id?: string;
+    first_id: number;
+    second_id: number;
 };
 
 const ActivitiesForm: React.FC = () => (
@@ -31,7 +31,7 @@ const ActivitiesForm: React.FC = () => (
     >
         <Form.Item<FieldType>
             label="ID attività"
-            name="id_1"
+            name="first_id"
             rules={[{ required: true, message: 'Inserire ID prima attività' }]}
         >
             <Input />
@@ -39,7 +39,7 @@ const ActivitiesForm: React.FC = () => (
 
         <Form.Item<FieldType>
             label="ID attività"
-            name="id_2"
+            name="second_id"
             rules={[{ required: true, message: 'Inserire ID seconda attività' }]}
         >
             <Input />
