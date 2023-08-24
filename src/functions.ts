@@ -36,10 +36,7 @@ async function getActivityStream(
       Authorization: "Bearer " + access_token,
     },
   };
-  //Response is a stream
   const response = await fetch(url, config);
-
-  //Read the stream
   const data = await response.json();
 
   if (!isActivityStream(data)) {
