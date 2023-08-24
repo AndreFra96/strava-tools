@@ -1,5 +1,53 @@
 import { AthleteActivity, isAthleteActivity } from "./models/athleteActivity";
 import { ActivityStats, isActivityStats } from "./models/activityStats";
+import { ActivityStream, isActivityStream } from "./models/activityStream";
+
+const streamTypes = [
+  "time",
+  "latlng",
+  "distance",
+  "altitude",
+  "velocity_smooth",
+  "heartrate",
+  "cadence",
+  "watts",
+  "temp",
+  "moving",
+  "grade_smooth",
+] as const;
+
+type StreamType = (typeof streamTypes)[number];
+
+//Effettua una richiesta alla API di Strava per ottenere tutti i tipi di stream di un'attività
+async function getActivityStream(
+  access_token: string,
+  activity_id: string,
+  keys: StreamType[] = ["distance"]
+): Promise<ActivityStream> {
+  const url = new URL(
+    `${process.env.NEXT_PUBLIC_STRAVA_BASE_URL}/activities/${activity_id}/streams`
+  );
+  url.searchParams.set("keys", keys.join(","));
+  url.searchParams.set("key_by_type", "true");
+  url.searchParams.set("resolution", "high");
+
+  const config = {
+    headers: {
+      Authorization: "Bearer " + access_token,
+    },
+  };
+  //Response is a stream
+  const response = await fetch(url, config);
+
+  //Read the stream
+  const data = await response.json();
+
+  if (!isActivityStream(data)) {
+    throw new Error("Invalid activity stream");
+  }
+
+  return data;
+}
 
 async function codeForTokenExchange(
   client_id: string,
@@ -94,4 +142,9 @@ async function getAthleteActivities(
   return data as AthleteActivity[];
 }
 
-export { codeForTokenExchange, getAthleteStats, getAthleteActivities };
+export {
+  codeForTokenExchange,
+  getAthleteStats,
+  getAthleteActivities,
+  getActivityStream,
+};
